@@ -10,6 +10,6 @@ handle possible errors in the user’s input.
 
 Programming Language -- Racket 
 
-IDE -- Visual Studio Code
+IDE -- DrRacket
 
 
