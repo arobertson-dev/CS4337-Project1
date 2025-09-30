@@ -6,5 +6,13 @@ This is my inital creation of the Dev Log that will be used and updated through 
 
 ## 09/29/2025 (Monday)
 
+Goal:
 In this session, plan on trying to create the different mode detection rather thats interactive or bash mode and after that will create the function that reads in user input and make sure its 
 a validated token, and produce an error message if it is not a valid token. 
+
+Worked on:
+Created interactive function that acts as a flag, based on current-command-line args, too check if the arg will be -b or --batch for batch mode, if not, it will run in default mode (interactive)
+
+Tokenize function that produces value tokens for the assignment '+', '-', '*', '-', '-5', '1' '$5'
+Also has error output for if the token is not a digit(number), otherwords unknown chars for the calculator.
+
