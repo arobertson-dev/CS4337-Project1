@@ -17,7 +17,7 @@ Tokenize function that produces value tokens for the assignment '+', '-', '*', '
 Also has error output for if the token is not a digit(number), otherwords unknown chars for the calculator.
 
 
-09/30/2025 (Tuesday)
+## 09/30/2025 (Tuesday)
 
 Correction: I commented out my previous two functions that were implemeneted as i am stuck and not sure where exactly to go next, orginally i was thinking i would tokenize the input then evaluate the function and print the results, but i realised i never actually took care of running the program in the correct mode, even though a function mode detection can detect what mode to run in.
 
