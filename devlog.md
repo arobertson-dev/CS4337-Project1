@@ -132,6 +132,82 @@ Summary of the program design scheme:
 8. Loop will continue until the word 'quit' is read from the input
 
 
+## 10/01/2025 (Wednesday)
+
+Yesterday I focused on trying to get a design scheme of the project instead of orginally just jumping into writing racket syntax for functions that i had in mine. I went into a clear overview of each function and its purpose towards the project, along with a quick summary of how the project works from the moment the user runs the program to when the user types quit to terminate the program.
+
+Today I will start at the top of my list and try to implement functions through the next couple of days to complete the project, Orginally i did have a mode detection function that i used to detect what mode the function is going to be ran in, and i also started on a function that would tokenize to the list of inputs typed in from the user, as this was important to actually being able to use future functions to use the logic to produce results. 
+
+So in this session i will be going over my 2 functions and its purpose, details and why it matters to the program, almost like a repeat of the design scheme in a way from yesterday.
+
+-- Working on Detection mode function
+
+Problems encountered: Although i had the right idea in mind about first having to detect what mode the project would be ran in, what i didnt full understand was how the project would be ran via batch mode. I wasn't thinking about running this program via a terminal because im doing all the racket coding in the DrRacket(IDE) and i'm able to just press the green button to run the program, but i didn't actually handle a way to be able to run the program in batch mode, as that is only done via running the program via terminal, for Ex.
+./Project1.rkt -b
+./Project1.rkt --batch
+
+I wasn't thinking about this orginally, for some reason i just assumed i would be able to run the program via the terminal in DrRacket in batch mode, much like when you call a specific function in a program (via class lecture ) the instructor would type out the function name in parenthesis followed by a list(arguments)
+
+Fix: To solve this i needed to add a args-list for the command-line to read input via the command line(terminal) where the function would be able to take this input and validate if it was to be ran in standard mode or batch mode. 
+The rest of my function for the most part was correct in the logic, so really in this session the args-list is the new implementation onto my previous detection mode function.
+
+Breakdown:
+
+So the (define args-list) and (define interactive?) both are used as my detection mode functions for this program, 
+All args-list does is convert the arguments to a list to be read for racket, and if theres no arguments meaning (standard mode) then just default to use a empty list.
+The interactive? function is what i orignally tried creating on Monday, and most of the logic has stayed the same, it will scan the input, if no arguments (empty list) then that means interactive mode which is set as #t, if there is a argument in this case -b or --batch, then this is telling us to be ran in batch mode and we define that as the opposite #f. 
+
+This detection mode is very important to the assignments instructions, personally if i was just creating a prefix calc on my own time i wouldnt even think to add a batch mode functionality, but the instructions for this project require both interactive and batch modes, This functional logic allows the program to work the same rather its ran via DrRacket (interactive) or when ran via the terminal for batch mode. 
+
+
+-- Working on the tokenize function
+
+Problems encountered: This function also for the most part had the correct design idea, it would convert raw input strings from the user into validated tokens for the calculator, in this case (numbers, operators and $n history references). Something i wasn't thinking about was handling whitespace, so i needed to fix that to correctly read input. I had the correct solution of validating the acceptable tokens for the calcualator ( all the ones listed in the assigment instructions). Something i kinda glossed over was the unary negation token, i didnt check to see if the (-) sign would be followed by digits, meaning it would refer to a negative number, so that had to be fixed. The hardest part of this function for me was trying to understand how i would handle the $n id's for history reference, i spent most of the time today on this function dealing exactly with this.
+
+Fix: To solve the $n history reference problem, the tokenize function logic scans the input, if it sees a $, then it automatically knows its dealing with a history reference. The logic takes the number right after the $ token, its read as a string and convereted to a integer, for ex $34 woudld take "34"(string) and turn it into 34(integer). This was pretty straight forward, orginally though i didnt add logic to a problem, what if the histroy index is larger then the number of evaluated expressions that the user has typed in. i needed a way to produce an error message to let the user know there is no history reference for that $n ID. After validating the index, the logic grabs the nth command from the history list (if real), then recursively call the tokenize function again to replace the $n typed by the user with the value stored from grabbing it just right before.
+Ex. supposed the 2nd evaluated expression history was (+ 7 3) reffering to $2, then the user inputs something like * 2 $2, the recursive call of the tokenize function allows to replace the $2 with "+". "7". "3", so then the whole list that the tokenize string reads from * $2 is ('*", "2", "+", "7", "3"). 
+
+Breakdown of function:
+
+Overall the tokenize function has helper functions to strip whitespace from the input, combine a sequence of digits into a string of numbers instead, then the function handles negative numbers with unary negation, by checking if the (-) is followed by digitis. Supports the $n history references described above and also produces an error message if the token is not recognized, (outside the scope of the allowed tokens for this project). 
+
+The calculator can't process text directly, instead it has to process a list of tokens, this tokenizer function will act as a translator for the later core logic functions that will actually do the calculator expression evaluating. without this tokenizer function, the calculator woulnd't even be able to read what the user was typing in and correctly process it, so its right up there in importance alongside the calcualator core logic.
+
+Important note:
+
+This tokenizer function doesn't evalute single tokens into numeric values, all it does is create tokens, i will be creating a function that uses the list of helpful functions given by the project1 instructions to convert the tokens into numbers or looking up the actual history references of $n, so although i gave an example of the logic above for how the history reference works, so a function will be needed to bridge the tokenizer tokens to real values in this case for the calculator to correctly evaluate the expressions. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
