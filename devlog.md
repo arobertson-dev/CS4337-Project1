@@ -178,6 +178,92 @@ Important note:
 This tokenizer function doesn't evalute single tokens into numeric values, all it does is create tokens, i will be creating a function that uses the list of helpful functions given by the project1 instructions to convert the tokens into numbers or looking up the actual history references of $n, so although i gave an example of the logic above for how the history reference works, so a function will be needed to bridge the tokenizer tokens to real values in this case for the calculator to correctly evaluate the expressions. 
 
 
+## 10/03/2025 (Friday)
+
+Recap:
+
+So far, the implemented functions is the detection-mode ( decides between interactive vs batch) and tokenize (splits input into usable tokens) , Next we'll work on a functions that uses the tokens produced by the tokenize function to do the actual calculations or the logic of the prefix calculator for this assignment which means the operator comes before the operands, which is not really the standard way of reading math expression when learning them through grade school, but i understand why it works this way for a functional programming language. 
+
+Next will need to implement the actual function that take the tokens and perform the evaluation and math of the prefix calculator, so this is the basis and core logic of the program and what really makes it work as a calculator.   
+
+The idea is to have three different functions that work as a pipeline for the core logic using recursion, to evalute the prefix notation and structure of these expressions.
+
+1st:  eval-token (does the math)
+
+Purpose: 
+
+This function will take the list of tokens produced by the tokenize function, recurisvely evaluate them according to the prefix notation rules and turn the symboles and numbers into actual computed results for the expressions to evaluate. 
+
+How it works:
+
+Read first token:
+-- if its a number --> return the number (base case)
+-- if its an operator --> recursively call eval-token again to fetch enough operands to apply the operator too, 
+
+The purpose of recursion in this function is to handle the subexpressions in nested structure,
+
+Ex. ("+", "5", "*", "2", "3")
+So eval token will read "+" then call eval-token again (recursion) to find operaands to use on the operator, it sees 5 (base case) returns 5, then it sees another operator (*), so then it will search again for base cases to apply to this operator. so for now when just reading ("+), "5", "*"), --> (5 + (*)) then when it calls eval token again it reads the next two numbers (base cases) and evaluates (2 * 3) = 6, then returns it to the previous expression getting (5 + (2*3)=6) --> (5 + 6), so this is how the recursion is needed and used in this function to evaluate the nested structure of expressions. 
+
+
+This function is part of the math logic that allows for the project to take the tokens and produce results ( read them as expressions) 
+
+2nd: eval-expr (ensures full correctness of input)
+
+Purpose:
+
+This function will wrap around eval-token to make sure the entire input expression is consumed correctly, it will ensure that the program doesnt just evaluate a piece of the tokens and leave leftovers or leave tokens stranded, which ties back to the assignment instructions. 
+
+how it works:
+This function will again call eval-token with the token list produced by the (tokenize function), after getting a result by the eval-token function it will check if all the tokens in the list were consumed, if not it will throw an error, if everything matches up though and no tokens are left over it will just return the computed result, so this is just a function that helps the program make sure no tokens are left behind. 
+
+Why it matters:
+This function acts as quality control, it helps eval token by checking and making sure it didnt stop early or ignore/leave leftover tokens. Gurantees that what the user input as an expression is indeed one valid expression, 
+
+This again breaks the problems down into smaller problems and uses more than one function to solve the problems at hand, intead of trying to fit all of this logic into the eval-token. 
+
+
+3rd: safe-eval (makes it safe to run the program) 
+
+Purpose: 
+This is the top level safety wrapper, this will call the eval-expr function which then in return will call the eval-token function, so as said before these three functions work as a pipeline, to form the core logic of the program ( the calculator part) 
+
+If the evaluation fails, this function will return an error message.
+
+How it works:
+
+Input( tokens from the tokenize function)
+tries to call eval-expr, if it succeeds then the pipline continues down to eval token and recursively calls back up to return a result of the expression
+If it fails though,
+errors like unvalidated token, not enough operands for the operator, or dividing by zero. it will return an error saying "Error: Invalid expression" 
+
+Importance:
+This is another safety net that will allow the program to keep running even if input from the user is invalid, instead of crashing the program the function will act as a safety wrapper for the program. with this safety wrapper the calculator will just throw an error and continue to run instead. 
+
+
+Ex. 
+
+Input: (" + 5 * 2 3 ") --> (tokenize) ("+", "5", "*", "2", "3")
+safe-eval -->  (starts the evaluation safely) calls eval-expr
+eval-expr --> validates the full expression use, calls eval token to actually do the computation
+eval token --> uses recursion, walks through the tokens, applies the operators, handles the numbers (base case) and checks for errors, the produces a result and returns that result, it goes back up through the tree and safe-eval either returns a number (valid) or an error (invalid) 
+
+Instead of crammining everything into one giant function, ( use project tips of splitting problems into more functions), this design splits the responsibilities across three smaller ones, this makes the code cleaner, easier to test and easier to maintain
+
+-- eval-token: compute numbers/operators
+-- eval-expr: checks for leftovers
+-- safe-eval: catch errors, keep program safe and continue to run even when invalid input. 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
