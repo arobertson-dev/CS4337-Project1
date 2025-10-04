@@ -285,6 +285,54 @@ Importance of the print function:
 Without this function, there wouldnt be a standarized format for printing, to stay consistent throughout the program, Also the user wouldn't be seeing the historyID with each new result printed, which is a requirement in the assignment instructions, and without this function, there would be a need for printing of results in many places throughout the code, which just requires more coding then needed. 
 
 
+Next, need to tackle the two modes of the calculator interactive and batchmode, the first function implemented reads the command-line-args to understand what mode the user wants the program to run in, now its about creating two functions that run the calculator in that designated mode, both functions will be very similar in the way they function, the only difference is the batch mode function will only show results of each expression with the historyID tied to that evaluated expression.
+
+interactive-loop
+
+This function is the standard(default) calculator mode, the user can continuosely type expressions and get immediate feedback, it runs like a REPL(read-eval-print-loop).
+
+How it works:
+
+First initalize the loop with empty history ( as no expressions have been evaluated yet and allows the historyID references to work properly), then prompt the user for input, and ensure it shows immediately. 
+
+Then the function reads the input, and has checks to see if the user types 'quit' which will terminate the program. 
+Otherwise, evalute the expression by calling safe-eval function which will ensure the computation works safely and doesnt crash the program. 
+
+After the result is computed, extract the result and update the history list to match each expressions computation in order, then call the print-result function to print the result and recursively call loop with new-history to loop back to beginning with an updated history list. 
+
+Importance:
+
+This function is the main control loop for the interactive-mode, without this function the program wouldn't continousely accept and process input, instead it would ask for it once, compute the result and if it wasnt set up on a loop then the program would stall out after this.
+
+It ties the whole program together in the design flow
+Read input --> sends it to the core logic (safe-eval) --> prints result --> updates history --> repeats loop
+
+
+batch-loop
+
+This function is very similar in the process in regards to how it works compared to the interactive-loop. the big difference is that this is for when the program should be ran in batch mode. the big difference is that no prompt is looped in, it just reads --> evaluates --> and prints the result --> reapat.
+
+
+how it works:
+
+Starts with empty history again, read the input line and handle the termination input just like the interactive-mode logic. After reading the input, it calls the safe-eval function and prints the result, only difference is no prompt is printed out.
+
+Importance: 
+This function handles the batch mode of the program, which is different then the interactive mode of the program, needed this function to seperate the two modes in how they run and operate, the basis and core logic of the calculator and how expressions are calculated are the exact same. 
+
+
+main function
+
+This function is the entry point of the program, this is where it decides if the program will be ran in the interactive-loop or batch-loop, depending on how the program is run.
+
+how it works:
+Built in function interactive? that checks if the program is connected to a terminal (interactive-input) or not, if true --> run interactive-loop
+false --> run batch-loop.
+
+Importance:
+
+This is how the program is ran from the execution, it either runs the interactive-loop or batch-loop and is needed for the program to actually be able to run, it starts the entire calculator and is the finishing point to this program. 
+
 
 
 
