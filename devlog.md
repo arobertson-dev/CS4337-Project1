@@ -256,6 +256,35 @@ Instead of crammining everything into one giant function, ( use project tips of 
 
 
 
+## 10/04/2025 (Saturday)
+
+
+Recap: So what has been implemented so far is a detection-mode function, a tokenize function ( that turns input into tokens) then most recently the core basis of the calculator that handles the expressions and does most of the work that the prefix calculator is actually supposed to do, the eval-token, eval-expr and safe-eval function that all work together to compute the expressions and evalute them to return a result without crashing the program when the input is incorrect or invalid. 
+
+
+What needs to be done:
+
+So now the program needs a way of printing out the result that is returned from the evalutation of the expressions, and it needs to be handled via the assignments format and instructions of how to print out the results.
+
+Solution:
+print-result function, this function will take the result and print it out in the correct format. 
+
+How it works:
+
+If an error occured it will just print the error message "Error: Invalid expression", Otherwise it will print the result along with the history ID number, showing which expression or input this was typed from the user. 
+
+1st: Check if the result is a string, because in the program the errors are represented as strings, so if the result is a string then it prints the error message. 
+
+2nd: Otherwise, its going to be a valid result, so it needs to print out the numeric output with the correct HistoryID, so it checks how many expressions have been successfully evaluated so far, because if it was a unsuccessful evaluated then the history log wont be updated, this was taken care of in a previous function. 
+It will print the histroy ID followed by the ":" to seperate the HistoryID from the result. Using the real->double_flonum result given by the instructions, it ensures the number is printed as a floating point number for the correct format according to the assignments instructions. 
+
+3rd: Lastly pass new-history log, this is because each time an expressions is evaluated correctly, the updated history list grows, (1 at a time), Using the length of the histroy log, ensures the printed ID always matches the current history index. 
+
+Importance of the print function:
+
+Without this function, there wouldnt be a standarized format for printing, to stay consistent throughout the program, Also the user wouldn't be seeing the historyID with each new result printed, which is a requirement in the assignment instructions, and without this function, there would be a need for printing of results in many places throughout the code, which just requires more coding then needed. 
+
+
 
 
 
