@@ -335,6 +335,85 @@ This is how the program is ran from the execution, it either runs the interactiv
 
 
 
+## 10/09/2025 (Thursday)
+
+
+Now that the program functions have been implemented, its time to test the program with unit test that will test all functionality and error checking of the program, to make sure the assignment instructions are met. The unit test will be broken down into different categories.
+
+1. Basic Arthimetic functionality
+2. Nested Expressions
+3. Negative Numbers and Negation
+4. History and $n references
+5. Error Handling and invalid inputs
+
+
+#1 Basic Arithmetic Functionality
+
+Binary operator
+- Test addition
+Input: + 2 3
+Expected output: 5.0
+
+Binary operator
+- Test multiplication
+Input: * 3 5
+Expected output: 15.0
+
+Binary operator
+- Test division
+Input: / 12 4
+Expected output: 3.0
+
+Unary Operator
+- Test subtraction (by adding a negative number)
+Input: + 10 -6
+Expected output: 4.0
+
+Input: + -10 6
+Expected output: -4.0
+
+Input: + -5 -5
+Expected output: -10.0
+
+- Test divide by zero (Error)
+Input: / 10 0
+Expected output: Error: Divison by zero
+
+- Test valid number of operands
+Input: + 1 2 3
+Expected output: Error: Invalid number of operands
+
+
+#2 Nexted expressions
+
+- Test nested prefix evaluation
+Input: + 2 * 3 4
+Computation:
+(* 3 4) --> 12.0
+(+ 2 12) --> 14.0
+Expected output: 14.0
+
+- Test left-right nesting order correctness
+Input: + * 2 3 / 8 4
+Computation:
+(* 2 3) --> 6.0
+(/ 8 4) --> 2.0
+(+ 6 2) --> 8.0
+Expected output: 8.0
+
+- Test correct operator precedence through prefix evaluation
+Input: / + 10 2 3
+Computation: 
+(+ 10 2) --> 12.0
+(/ 12 3) --> 4.0
+Expected output: 4.0 
+
+
+
+
+
+
+
 
 
 
