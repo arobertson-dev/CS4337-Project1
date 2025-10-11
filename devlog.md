@@ -352,28 +352,26 @@ Now that the program functions have been implemented, its time to test the progr
 Binary operator
 - Test addition
 Input: + 2 3
+Computation (2+3) --> 5.0
 Expected output: 5.0
 
 Binary operator
 - Test multiplication
 Input: * 3 5
+Computation: (3*5) --> 15.0
 Expected output: 15.0
 
 Binary operator
 - Test division
 Input: / 12 4
+Computation: (12/4)--> 3.0
 Expected output: 3.0
 
 Unary Operator
 - Test subtraction (by adding a negative number)
 Input: + 10 -6
+Computation: (10 + (-6)) --> 4.0
 Expected output: 4.0
-
-Input: + -10 6
-Expected output: -4.0
-
-Input: + -5 -5
-Expected output: -10.0
 
 - Test divide by zero (Error)
 Input: / 10 0
@@ -384,7 +382,7 @@ Input: + 1 2 3
 Expected output: Error: Invalid number of operands
 
 
-#2 Nexted expressions
+#2 Nested expressions
 
 - Test nested prefix evaluation
 Input: + 2 * 3 4
@@ -406,7 +404,82 @@ Input: / + 10 2 3
 Computation: 
 (+ 10 2) --> 12.0
 (/ 12 3) --> 4.0
-Expected output: 4.0 
+Expected output: 4.0
+
+
+## 10/10/2025 (Friday)
+
+
+Recap: So working through unit test to make sure the program functionality works as intended via the assignment instructions and constraints. Yesterday we went over the basic arthimetic of the calculator along with the nested expressions, which are handled in the 3 pipe-line functions safe-eval, eval-expr and expr-token. Today since i have more time going to finish up the unit test.
+
+
+
+#3 Negative numbers and unary negation
+
+-Test negative number input
+Input: + -5 -5
+Computation: (+ -5 -5) --> -10.0
+Expected output: -10.0
+
+-Test unary negation (single operand)
+Input: - 5
+Computation: (- 5) --> -5.0
+Expected output: -5.0
+
+-Test nested negation with expression
+Input: - + 3 2
+Computation:
+(+ 3 2) --> 5.0
+(- 5.0) --> -5.0
+Expected output: -5.0
+
+
+#4 History and $n reference handling
+
+-Test basic history recall
+Input Sequence:
+1) + 2 3
+2) $1
+Computation:
+(+ 2 3) --> 5.0
+($1) --> 5.0
+Expected output:
+1: 5.0
+2: 5.0
+
+-Test multiple history references
+Input Sequences:
+1) * 2 4
+2) + $1 3
+3) * $2 2
+Computation:
+(* 2 4) -> 8.0
+(+ 8 3) -> 11.0
+(* 11 2) --> 22.0
+Expected output:
+1: 8.0
+2: 11.0
+3: 22.0
+
+-Test invalid history reference
+Input: $10 (when only 2 results exist in history)
+Expected output: Error: Invalid Expression
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
