@@ -496,7 +496,7 @@ Input: quit
 Expected output: > (DrracketIDE) 
 
 
-
+With these unit test, it will cover the whole scope of the project requirements and assignment instructions to make sure the prefix calculator works as intended, I made sure to test these unit test in interactive mode via (Drracket) and via batch mode with -b or --batch in the terminal for my MacOS. 
 
 
 
