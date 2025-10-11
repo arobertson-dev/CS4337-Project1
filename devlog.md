@@ -468,6 +468,40 @@ Expected output: Error: Invalid Expression
 
 
 
+#5 Error Handling and Invalid Input Tests
+
+
+-Test division by zero (repeat)
+Input: / 10 0
+Expected output: Error: Division by zero
+
+-Test invalid operator
+Input: % 5 2
+Expected output: Error: Invalid Expression
+
+-Test invalid number of operands ( too many arguments) (repeat)
+Input: + 1 2 3
+Expected output: Error: Invalid number of operands
+
+-Test incomplete expression ( too few operands)
+Input: + 5
+Expected output: Error: Invalid number of operands
+
+-Test malformed $n reference
+Input: $
+Expected output: Error: Invalid expression
+
+-- Test keyword quit ( to terminate program)
+Input: quit
+Expected output: > (DrracketIDE) 
+
+
+
+
+
+
+
+
 
 
 
